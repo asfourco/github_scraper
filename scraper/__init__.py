@@ -1,1 +1,2 @@
-from .github import GithubAPI
+from .user import UserAPI
+from .repo import RepoAPI

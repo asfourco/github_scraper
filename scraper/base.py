@@ -3,49 +3,63 @@
 from requests import Request, Session, get
 from requests.auth import HTTPBasicAuth
 import warnings
+from .logger import LogDecorator
+from .exceptions import InvalidAPIUrlError, InvalidAPIQueryError
 
 
 class BaseRequest:
     ROOT_API_URL = "https://api.github.com"
+    PER_PAGE_LIMIT = 100
 
-    def get_request_limit(self, access_token):
-        url = f"{self.ROOT_API_URL}/rate_limit?access_token={access_token}"
-        response = get(url)
-        data = response.json()
-        return data["resources"]["core"].get("remaining")
+    @property
+    def username(self):
+        return self._username
 
-    def get_default_access_token(self):
-        return self.default_access_token
-
-    def get_default_username(self):
-        return self.default_username
+    @property
+    def access_token(self):
+        return self._access_token
 
     def is_authenticated(self):
-        return bool(self.get_default_username() and self.get_default_access_token())
+        return bool(self.username and self.access_token)
 
-    def get_default_headers(self):
+    @property
+    def default_headers(self):
         headers = {"Accept": "application/vnd.github.v3+json"}
         return headers
 
-    def _get(self, url, params=None):
+    def get_http_auth(self):
+        return HTTPBasicAuth(self._username, self._access_token)
+
+    @LogDecorator(name="BaseRequest")
+    def execute_request(self, url, params=None):
         data = {}
         session = Session()
-        req = Request("GET", url=url, headers=self.get_default_headers(), params=params)
-        prepped = session.prepare_request(req)
-        if self.is_authenticated:
-            prepped.auth = HTTPBasicAuth(
-                self.get_default_username, self.get_default_access_token
-            )
-
-        response = session.send(prepped)
-        data = {"data": response.json(), "next_url": response.links["next"]["url"]}
+        request = Request("GET", url=url, headers=self.default_headers, params=params)
+        prepped = session.prepare_request(request)
+        if self.is_authenticated():
+            prepped.auth = self.get_http_auth()
+        try:
+            response = session.send(prepped)
+        except Exception as e:
+            raise e
+        else:
+            if response.status_code == 404:
+                raise InvalidAPIUrlError({"url": response.url})
+            if response.status_code != 200:
+                raise InvalidAPIQueryError(
+                    {"url": response.url, "code": response.status_code}
+                )
+            data = {
+                "status_code": int(response.status_code),
+                "data": response.json(),
+                "next_url": response.links.get("next", {}).get("url"),
+            }
         return data
 
-    def check_per_page_limit(self, value):
-        limit = 100
-        if value > limit:
+    def verify_per_page_limit(self, value):
+        if value > self.PER_PAGE_LIMIT:
             warnings.warn(
-                f"parameter per_page value exceeds {limit}, the maxium Github API will return"
+                f"parameter per_page value exceeds {self.PER_PAGE_LIMIT}, the maxium Github API will return"
             )
-            value = 100
+            value = self.PER_PAGE_LIMIT
         return value
