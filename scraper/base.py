@@ -1,10 +1,9 @@
 """Base Module to connect to Github API"""
 
+import warnings
 from requests import Request, Session, get
 from requests.auth import HTTPBasicAuth
-import warnings
-from .logger import LogDecorator
-from .exceptions import InvalidAPIUrlError, InvalidAPIQueryError
+from .exceptions import InvalidAPIUrlError, InvalidAPIQueryError, InvalidParameterError
 
 
 class BaseRequest:
@@ -30,7 +29,6 @@ class BaseRequest:
     def get_http_auth(self):
         return HTTPBasicAuth(self._username, self._access_token)
 
-    @LogDecorator(name="BaseRequest")
     def execute_request(self, url, params=None):
         data = {}
         session = Session()
@@ -63,3 +61,21 @@ class BaseRequest:
             )
             value = self.PER_PAGE_LIMIT
         return value
+
+    def verify_type(self, value):
+        valid_values = ["all", "member", "owner"]
+        return self._verify(value, valid_values, "Repository user type")
+
+    def verify_sort(self, value):
+        valid_values = ["created", "updated", "pushed", "full_name"]
+        return self._verify(value, valid_values, "Sort")
+
+    def verify_direction(self, value):
+        valid_values = ["asc", "desc"]
+        return self._verify(value, valid_values, "Direction")
+
+    def _verify(self, value, valid_values, entity):
+        if value.lower() in valid_values:
+            return value.lower()
+        else:
+            raise InvalidParameterError({"entity": entity})

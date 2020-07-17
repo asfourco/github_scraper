@@ -16,6 +16,7 @@ class RepoModelTests(TestCase):
             owner_id=self.user.id,
             private=False,
             fork=False,
+            forks=0,
         )
 
     def test_read_repo(self):

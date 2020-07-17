@@ -1,5 +1,6 @@
 from django.db import models
 from .user import User
+from .license import License
 
 
 class Repo(models.Model):
@@ -49,5 +50,30 @@ class Repo(models.Model):
     labels_url = models.URLField()
     releases_url = models.URLField()
     deployments_url = models.URLField()
+    git_url = models.CharField(max_length=200)
+    ssh_url = models.CharField(max_length=200)
+    clone_url = models.URLField()
+    svn_url = models.URLField()
+    mirror_url = models.URLField(blank=True, null=True)
+    homepage = models.CharField(max_length=200, blank=True, null=True)
+    size = models.IntegerField(default=0)
+    stargazers_count = models.IntegerField(default=0)
+    watchers_count = models.IntegerField(default=1)
+    language = models.CharField(max_length=200)
+    has_issues = models.BooleanField(default=False)
+    has_projects = models.BooleanField(default=False)
+    has_downloads = models.BooleanField(default=False)
+    has_wiki = models.BooleanField(default=False)
+    has_pages = models.BooleanField(default=False)
+    forks_count = models.IntegerField(default=0)
+    archived = models.BooleanField(default=False)
+    disabled = models.BooleanField(default=False)
+    open_issues_count = models.IntegerField(default=0)
+    license = models.ForeignKey(License, on_delete=models.SET_NULL, null=True)
+    forks = models.IntegerField(default=0)
+    open_issues = models.IntegerField(default=0)
+    watchers = models.IntegerField(default=1)
+    default_branch = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    pushed_at = models.DateTimeField(auto_now_add=True)

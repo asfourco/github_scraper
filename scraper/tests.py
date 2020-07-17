@@ -34,40 +34,57 @@ class BaseRequestTest(TestCase):
 
 class UserAPITest(TestCase):
     def setUp(self):
-        self.user_api = UserAPI()
+        self.api = UserAPI()
 
     def test_user_api_is_not_authenticated(self):
-        self.assertFalse(self.user_api.is_authenticated())
+        self.assertFalse(self.api.is_authenticated())
 
     def test_request_user_list(self):
-        users = self.user_api.get_users(per_page=10)
+        users = self.api.get_users(per_page=10)
         self.assertIn("data", users)
         self.assertIn("next_url", users)
         self.assertIsInstance(users["data"], list)
         self.assertEqual(len(users["data"]), 10)
 
-
-class RepoAPITest(TestCase):
-    def setUp(self):
-        self.repo_api = RepoAPI()
-
-    def test_repo_api_is_not_authenticated(self):
-        self.assertFalse(self.repo_api.is_authenticated())
-
-    def test_request_repo_list(self):
-        repos = self.repo_api.get_public_repos()
-        self.assertIn("data", repos)
-        self.assertIn("next_url", repos)
-        self.assertIsInstance(repos["data"], list)
-
     def test_valid_request_user_repo(self):
         per_page = 2
-        repos = self.repo_api.get_repos_of_user(username="asfourco", per_page=per_page)
+        repos = self.api.get_repos_of_user(username="asfourco", per_page=per_page)
         self.assertIn("data", repos)
         self.assertIn("next_url", repos)
         self.assertIsInstance(repos["data"], list)
         self.assertEqual(len(repos["data"]), per_page)
 
-    def test_invalid_request_user_repo(self):
+    def test_valid_request_without_next_user_repo(self):
+        per_page = 100
+        repos = self.api.get_repos_of_user(username="asfourco", per_page=per_page)
+        self.assertIn("data", repos)
+        self.assertIn("next_url", repos)
+        self.assertIsInstance(repos["data"], list)
+        self.assertLess(len(repos["data"]), per_page)
+        self.assertFalse(repos.get("next_url"))
+
+    def test_invalid_sort_request_user_repo(self):
         with self.assertRaises(InvalidParameterError):
-            self.repo_api.get_repos_of_user(username="asfourco", sort_by="asc")
+            self.api.get_repos_of_user(username="asfourco", sort="asc")
+
+    def test_invalid_type_request_user_repo(self):
+        with self.assertRaises(InvalidParameterError):
+            self.api.get_repos_of_user(username="asfourco", type="asc")
+
+    def test_invalid_direction_request_user_repo(self):
+        with self.assertRaises(InvalidParameterError):
+            self.api.get_repos_of_user(username="asfourco", direction="up_and_away")
+
+
+class RepoAPITest(TestCase):
+    def setUp(self):
+        self.api = RepoAPI()
+
+    def test_repo_api_is_not_authenticated(self):
+        self.assertFalse(self.api.is_authenticated())
+
+    def test_request_repo_list(self):
+        repos = self.api.get_public_repos()
+        self.assertIn("data", repos)
+        self.assertIn("next_url", repos)
+        self.assertIsInstance(repos["data"], list)

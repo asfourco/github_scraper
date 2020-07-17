@@ -71,54 +71,11 @@ class CreateNewRepoTest(TestCase):
         self.user = User.objects.create(
             id=10, login="bob", type="User", site_admin=False
         )
-        self.valid_payload = {
-            "id": 1,
-            "node_id": "MDEwOlJlcG9zaXRvcnkx",
-            "name": "grit",
-            "full_name": "mojombo/grit",
-            "private": False,
-            "owner": self.user.id,
-            "html_url": "https://github.com/mojombo/grit",
-            "description": "**Grit is no longer maintained. Check out libgit2/rugged.** Grit gives you object oriented read/write access to Git repositories via Ruby.",
-            "fork": False,
-            "url": "https://api.github.com/repos/mojombo/grit",
-            "forks_url": "https://api.github.com/repos/mojombo/grit/forks",
-            "keys_url": "https://api.github.com/repos/mojombo/grit/keys{/key_id}",
-            "collaborators_url": "https://api.github.com/repos/mojombo/grit/collaborators{/collaborator}",
-            "teams_url": "https://api.github.com/repos/mojombo/grit/teams",
-            "hooks_url": "https://api.github.com/repos/mojombo/grit/hooks",
-            "issue_events_url": "https://api.github.com/repos/mojombo/grit/issues/events{/number}",
-            "events_url": "https://api.github.com/repos/mojombo/grit/events",
-            "assignees_url": "https://api.github.com/repos/mojombo/grit/assignees{/user}",
-            "branches_url": "https://api.github.com/repos/mojombo/grit/branches{/branch}",
-            "tags_url": "https://api.github.com/repos/mojombo/grit/tags",
-            "blobs_url": "https://api.github.com/repos/mojombo/grit/git/blobs{/sha}",
-            "git_tags_url": "https://api.github.com/repos/mojombo/grit/git/tags{/sha}",
-            "git_refs_url": "https://api.github.com/repos/mojombo/grit/git/refs{/sha}",
-            "trees_url": "https://api.github.com/repos/mojombo/grit/git/trees{/sha}",
-            "statuses_url": "https://api.github.com/repos/mojombo/grit/statuses/{sha}",
-            "languages_url": "https://api.github.com/repos/mojombo/grit/languages",
-            "stargazers_url": "https://api.github.com/repos/mojombo/grit/stargazers",
-            "contributors_url": "https://api.github.com/repos/mojombo/grit/contributors",
-            "subscribers_url": "https://api.github.com/repos/mojombo/grit/subscribers",
-            "subscription_url": "https://api.github.com/repos/mojombo/grit/subscription",
-            "commits_url": "https://api.github.com/repos/mojombo/grit/commits{/sha}",
-            "git_commits_url": "https://api.github.com/repos/mojombo/grit/git/commits{/sha}",
-            "comments_url": "https://api.github.com/repos/mojombo/grit/comments{/number}",
-            "issue_comment_url": "https://api.github.com/repos/mojombo/grit/issues/comments{/number}",
-            "contents_url": "https://api.github.com/repos/mojombo/grit/contents/{+path}",
-            "compare_url": "https://api.github.com/repos/mojombo/grit/compare/{base}...{head}",
-            "merges_url": "https://api.github.com/repos/mojombo/grit/merges",
-            "archive_url": "https://api.github.com/repos/mojombo/grit/{archive_format}{/ref}",
-            "downloads_url": "https://api.github.com/repos/mojombo/grit/downloads",
-            "issues_url": "https://api.github.com/repos/mojombo/grit/issues{/number}",
-            "pulls_url": "https://api.github.com/repos/mojombo/grit/pulls{/number}",
-            "milestones_url": "https://api.github.com/repos/mojombo/grit/milestones{/number}",
-            "notifications_url": "https://api.github.com/repos/mojombo/grit/notifications{?since,all,participating}",
-            "labels_url": "https://api.github.com/repos/mojombo/grit/labels{/name}",
-            "releases_url": "https://api.github.com/repos/mojombo/grit/releases{/id}",
-            "deployments_url": "https://api.github.com/repos/mojombo/grit/deployments",
-        }
+        self.valid_payload = json.loads(
+            """
+        {"id": 128637300, "node_id": "MDEwOlJlcG9zaXRvcnkxMjg2MzczMDA=", "name": "amz", "full_name": "asfourco/amz", "private": false, "owner": 10, "html_url": "https://github.com/asfourco/amz", "description": "Apollo graphql client/server demo", "fork": false, "url": "https://api.github.com/repos/asfourco/amz", "forks_url": "https://api.github.com/repos/asfourco/amz/forks", "keys_url": "https://api.github.com/repos/asfourco/amz/keys{/key_id}", "collaborators_url": "https://api.github.com/repos/asfourco/amz/collaborators{/collaborator}", "teams_url": "https://api.github.com/repos/asfourco/amz/teams", "hooks_url": "https://api.github.com/repos/asfourco/amz/hooks", "issue_events_url": "https://api.github.com/repos/asfourco/amz/issues/events{/number}", "events_url": "https://api.github.com/repos/asfourco/amz/events", "assignees_url": "https://api.github.com/repos/asfourco/amz/assignees{/user}", "branches_url": "https://api.github.com/repos/asfourco/amz/branches{/branch}", "tags_url": "https://api.github.com/repos/asfourco/amz/tags", "blobs_url": "https://api.github.com/repos/asfourco/amz/git/blobs{/sha}", "git_tags_url": "https://api.github.com/repos/asfourco/amz/git/tags{/sha}", "git_refs_url": "https://api.github.com/repos/asfourco/amz/git/refs{/sha}", "trees_url": "https://api.github.com/repos/asfourco/amz/git/trees{/sha}", "statuses_url": "https://api.github.com/repos/asfourco/amz/statuses/{sha}", "languages_url": "https://api.github.com/repos/asfourco/amz/languages", "stargazers_url": "https://api.github.com/repos/asfourco/amz/stargazers", "contributors_url": "https://api.github.com/repos/asfourco/amz/contributors", "subscribers_url": "https://api.github.com/repos/asfourco/amz/subscribers", "subscription_url": "https://api.github.com/repos/asfourco/amz/subscription", "commits_url": "https://api.github.com/repos/asfourco/amz/commits{/sha}", "git_commits_url": "https://api.github.com/repos/asfourco/amz/git/commits{/sha}", "comments_url": "https://api.github.com/repos/asfourco/amz/comments{/number}", "issue_comment_url": "https://api.github.com/repos/asfourco/amz/issues/comments{/number}", "contents_url": "https://api.github.com/repos/asfourco/amz/contents/{+path}", "compare_url": "https://api.github.com/repos/asfourco/amz/compare/{base}...{head}", "merges_url": "https://api.github.com/repos/asfourco/amz/merges", "archive_url": "https://api.github.com/repos/asfourco/amz/{archive_format}{/ref}", "downloads_url": "https://api.github.com/repos/asfourco/amz/downloads", "issues_url": "https://api.github.com/repos/asfourco/amz/issues{/number}", "pulls_url": "https://api.github.com/repos/asfourco/amz/pulls{/number}", "milestones_url": "https://api.github.com/repos/asfourco/amz/milestones{/number}", "notifications_url": "https://api.github.com/repos/asfourco/amz/notifications{?since,all,participating}", "labels_url": "https://api.github.com/repos/asfourco/amz/labels{/name}", "releases_url": "https://api.github.com/repos/asfourco/amz/releases{/id}", "deployments_url": "https://api.github.com/repos/asfourco/amz/deployments", "created_at": "2018-04-08T12:08:46Z", "updated_at": "2020-06-02T20:02:25Z", "pushed_at": "2018-04-11T13:44:30Z", "git_url": "git://github.com/asfourco/amz.git", "ssh_url": "git@github.com:asfourco/amz.git", "clone_url": "https://github.com/asfourco/amz.git", "svn_url": "https://github.com/asfourco/amz", "homepage": "", "size": 497, "stargazers_count": 1, "watchers_count": 1, "language": "JavaScript", "has_issues": true, "has_projects": true, "has_downloads": true, "has_wiki": true, "has_pages": false, "forks_count": 1, "mirror_url": null, "archived": true, "disabled": false, "open_issues_count": 0, "forks": 1, "open_issues": 0, "watchers": 1, "default_branch": "master"}
+        """
+        )
 
         self.invalid_payload = {"name": "", "id": 100}
 
@@ -145,54 +102,12 @@ class UpdateSingleRepoTest(TestCase):
         self.repo = Repo.objects.create(
             id=100, name="foobar", owner_id=self.user.id, private=False, fork=False
         )
-        self.valid_payload = {
-            "id": self.repo.id,
-            "node_id": "MDEwOlJlcG9zaXRvcnkx",
-            "name": "grit",
-            "full_name": "mojombo/grit",
-            "private": False,
-            "owner": self.user.id,
-            "html_url": "https://github.com/mojombo/grit",
-            "description": "**Grit is no longer maintained. Check out libgit2/rugged.** Grit gives you object oriented read/write access to Git repositories via Ruby.",
-            "fork": False,
-            "url": "https://api.github.com/repos/mojombo/grit",
-            "forks_url": "https://api.github.com/repos/mojombo/grit/forks",
-            "keys_url": "https://api.github.com/repos/mojombo/grit/keys{/key_id}",
-            "collaborators_url": "https://api.github.com/repos/mojombo/grit/collaborators{/collaborator}",
-            "teams_url": "https://api.github.com/repos/mojombo/grit/teams",
-            "hooks_url": "https://api.github.com/repos/mojombo/grit/hooks",
-            "issue_events_url": "https://api.github.com/repos/mojombo/grit/issues/events{/number}",
-            "events_url": "https://api.github.com/repos/mojombo/grit/events",
-            "assignees_url": "https://api.github.com/repos/mojombo/grit/assignees{/user}",
-            "branches_url": "https://api.github.com/repos/mojombo/grit/branches{/branch}",
-            "tags_url": "https://api.github.com/repos/mojombo/grit/tags",
-            "blobs_url": "https://api.github.com/repos/mojombo/grit/git/blobs{/sha}",
-            "git_tags_url": "https://api.github.com/repos/mojombo/grit/git/tags{/sha}",
-            "git_refs_url": "https://api.github.com/repos/mojombo/grit/git/refs{/sha}",
-            "trees_url": "https://api.github.com/repos/mojombo/grit/git/trees{/sha}",
-            "statuses_url": "https://api.github.com/repos/mojombo/grit/statuses/{sha}",
-            "languages_url": "https://api.github.com/repos/mojombo/grit/languages",
-            "stargazers_url": "https://api.github.com/repos/mojombo/grit/stargazers",
-            "contributors_url": "https://api.github.com/repos/mojombo/grit/contributors",
-            "subscribers_url": "https://api.github.com/repos/mojombo/grit/subscribers",
-            "subscription_url": "https://api.github.com/repos/mojombo/grit/subscription",
-            "commits_url": "https://api.github.com/repos/mojombo/grit/commits{/sha}",
-            "git_commits_url": "https://api.github.com/repos/mojombo/grit/git/commits{/sha}",
-            "comments_url": "https://api.github.com/repos/mojombo/grit/comments{/number}",
-            "issue_comment_url": "https://api.github.com/repos/mojombo/grit/issues/comments{/number}",
-            "contents_url": "https://api.github.com/repos/mojombo/grit/contents/{+path}",
-            "compare_url": "https://api.github.com/repos/mojombo/grit/compare/{base}...{head}",
-            "merges_url": "https://api.github.com/repos/mojombo/grit/merges",
-            "archive_url": "https://api.github.com/repos/mojombo/grit/{archive_format}{/ref}",
-            "downloads_url": "https://api.github.com/repos/mojombo/grit/downloads",
-            "issues_url": "https://api.github.com/repos/mojombo/grit/issues{/number}",
-            "pulls_url": "https://api.github.com/repos/mojombo/grit/pulls{/number}",
-            "milestones_url": "https://api.github.com/repos/mojombo/grit/milestones{/number}",
-            "notifications_url": "https://api.github.com/repos/mojombo/grit/notifications{?since,all,participating}",
-            "labels_url": "https://api.github.com/repos/mojombo/grit/labels{/name}",
-            "releases_url": "https://api.github.com/repos/mojombo/grit/releases{/id}",
-            "deployments_url": "https://api.github.com/repos/mojombo/grit/deployments",
-        }
+        self.valid_payload = json.loads(
+            """
+        {"id": 100, "node_id": "MDEwOlJlcG9zaXRvcnkxMjg2MzczMDA=", "name": "amz", "full_name": "asfourco/amz", "private": false, "owner": 100, "html_url": "https://github.com/asfourco/amz", "description": "Apollo graphql client/server demo", "fork": false, "url": "https://api.github.com/repos/asfourco/amz", "forks_url": "https://api.github.com/repos/asfourco/amz/forks", "keys_url": "https://api.github.com/repos/asfourco/amz/keys{/key_id}", "collaborators_url": "https://api.github.com/repos/asfourco/amz/collaborators{/collaborator}", "teams_url": "https://api.github.com/repos/asfourco/amz/teams", "hooks_url": "https://api.github.com/repos/asfourco/amz/hooks", "issue_events_url": "https://api.github.com/repos/asfourco/amz/issues/events{/number}", "events_url": "https://api.github.com/repos/asfourco/amz/events", "assignees_url": "https://api.github.com/repos/asfourco/amz/assignees{/user}", "branches_url": "https://api.github.com/repos/asfourco/amz/branches{/branch}", "tags_url": "https://api.github.com/repos/asfourco/amz/tags", "blobs_url": "https://api.github.com/repos/asfourco/amz/git/blobs{/sha}", "git_tags_url": "https://api.github.com/repos/asfourco/amz/git/tags{/sha}", "git_refs_url": "https://api.github.com/repos/asfourco/amz/git/refs{/sha}", "trees_url": "https://api.github.com/repos/asfourco/amz/git/trees{/sha}", "statuses_url": "https://api.github.com/repos/asfourco/amz/statuses/{sha}", "languages_url": "https://api.github.com/repos/asfourco/amz/languages", "stargazers_url": "https://api.github.com/repos/asfourco/amz/stargazers", "contributors_url": "https://api.github.com/repos/asfourco/amz/contributors", "subscribers_url": "https://api.github.com/repos/asfourco/amz/subscribers", "subscription_url": "https://api.github.com/repos/asfourco/amz/subscription", "commits_url": "https://api.github.com/repos/asfourco/amz/commits{/sha}", "git_commits_url": "https://api.github.com/repos/asfourco/amz/git/commits{/sha}", "comments_url": "https://api.github.com/repos/asfourco/amz/comments{/number}", "issue_comment_url": "https://api.github.com/repos/asfourco/amz/issues/comments{/number}", "contents_url": "https://api.github.com/repos/asfourco/amz/contents/{+path}", "compare_url": "https://api.github.com/repos/asfourco/amz/compare/{base}...{head}", "merges_url": "https://api.github.com/repos/asfourco/amz/merges", "archive_url": "https://api.github.com/repos/asfourco/amz/{archive_format}{/ref}", "downloads_url": "https://api.github.com/repos/asfourco/amz/downloads", "issues_url": "https://api.github.com/repos/asfourco/amz/issues{/number}", "pulls_url": "https://api.github.com/repos/asfourco/amz/pulls{/number}", "milestones_url": "https://api.github.com/repos/asfourco/amz/milestones{/number}", "notifications_url": "https://api.github.com/repos/asfourco/amz/notifications{?since,all,participating}", "labels_url": "https://api.github.com/repos/asfourco/amz/labels{/name}", "releases_url": "https://api.github.com/repos/asfourco/amz/releases{/id}", "deployments_url": "https://api.github.com/repos/asfourco/amz/deployments", "created_at": "2018-04-08T12:08:46Z", "updated_at": "2020-06-02T20:02:25Z", "pushed_at": "2018-04-11T13:44:30Z", "git_url": "git://github.com/asfourco/amz.git", "ssh_url": "git@github.com:asfourco/amz.git", "clone_url": "https://github.com/asfourco/amz.git", "svn_url": "https://github.com/asfourco/amz", "homepage": "", "size": 497, "stargazers_count": 1, "watchers_count": 1, "language": "JavaScript", "has_issues": true, "has_projects": true, "has_downloads": true, "has_wiki": true, "has_pages": false, "forks_count": 1, "mirror_url": null, "archived": true, "disabled": false, "open_issues_count": 0, "forks": 1, "open_issues": 0, "watchers": 1, "default_branch": "master"}
+        """
+        )
+
         self.invalid_payload = {"login": "", "id": 100, "node_id": "nmjkl123AA"}
 
     def test_valid_update_repo(self):

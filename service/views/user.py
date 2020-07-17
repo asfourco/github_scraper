@@ -70,3 +70,8 @@ def get_repos_of_user(request, pk):
     else:
         serialized_user = RepoSerializer(user.repos, many=True)
         return Response(serialized_user.data)
+
+
+@api_view(["GET"])
+def scrape_github_users(request):
+    pass

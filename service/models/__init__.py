@@ -1,3 +1,4 @@
 from .user import User
 from .repo import Repo
 from .next_url import NextUrl
+from .license import License
