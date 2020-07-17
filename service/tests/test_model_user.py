@@ -1,5 +1,5 @@
 from django.test import TestCase
-from scraper.models import User, Repo
+from service.models import User, Repo
 
 
 class UserModelTests(TestCase):

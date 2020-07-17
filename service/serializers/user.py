@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from scraper.models import User
+from service.models import User
 
 
 class UserSerializer(serializers.ModelSerializer):

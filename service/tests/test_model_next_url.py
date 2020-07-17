@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.db import IntegrityError
-from scraper.models import NextUrl
+from service.models import NextUrl
 
 
 class nextUrlModelTests(TestCase):

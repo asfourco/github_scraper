@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from scraper.models import Repo
+from service.models import Repo
 
 
 class RepoSerializer(serializers.ModelSerializer):

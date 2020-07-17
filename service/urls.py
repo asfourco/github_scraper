@@ -1,5 +1,5 @@
 from django.conf.urls import url, include
-from scraper import views
+from service import views
 
 
 urlpatterns = [

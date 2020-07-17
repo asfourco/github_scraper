@@ -1,9 +1,9 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from scraper.models import NextUrl
-from scraper.serializers import NextUrlSerializer
-from scraper.utils import get_fields
+from service.models import NextUrl
+from service.serializers import NextUrlSerializer
+from service.utils import get_fields
 
 
 @api_view(["GET", "DELETE", "PUT"])

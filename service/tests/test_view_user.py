@@ -2,8 +2,8 @@ import json
 from rest_framework import status
 from django.test import TestCase, Client
 from django.urls import reverse
-from scraper.models import User, Repo
-from scraper.serializers import UserSerializer, RepoSerializer
+from service.models import User, Repo
+from service.serializers import UserSerializer, RepoSerializer
 
 client = Client()
 

@@ -12,6 +12,8 @@ bandit = "*"
 pre-commit = "*"
 django = "*"
 djangorestframework = "*"
+python-dateutil = "*"
+requests = "*"
 
 [requires]
 python_version = "3.8"

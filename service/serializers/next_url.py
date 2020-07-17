@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from scraper.models import NextUrl
+from service.models import NextUrl
 
 
 class NextUrlSerializer(serializers.ModelSerializer):

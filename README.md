@@ -5,6 +5,7 @@
 Simple Github Repo and User data scraping service
 
 ### RESTful endpoint structure
+base url: `http://localhost:8000/api/v1/`
 
 | Endpoint | HTTP Method | CRUD Method | Result |
 | --- | --- | --- | --- |
@@ -30,10 +31,15 @@ Simple Github Repo and User data scraping service
 | next_url/user|DELETE|DELETE|Delete next link for users
 
 
-
 ## Requirements
 
+1. Python 3.8 or greater
+1. Pipenv
+1. Github personal token (optional)
+1. Postman or similar API exploration tool
+
 ## Install
+
 
 ## Usage
 
