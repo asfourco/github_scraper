@@ -2,17 +2,16 @@ from django.test import TestCase
 from scraper.models import User, Repo
 
 
-class userModelTests(TestCase):
+class UserModelTests(TestCase):
     def setUp(self):
         self.username = "testuser"
-        self.user = User(
+        User.objects.create(
             login=self.username,
             id=1,
             node_id="abcde1233",
             type="User",
             site_admin=False,
         )
-        self.user.save()
 
     def test_read_user(self):
         user = User.objects.get(pk=1)
@@ -23,15 +22,14 @@ class userModelTests(TestCase):
 
     def test_read_user_repo(self):
         name = "testRepo"
-        repo = Repo(
+        Repo.objects.create(
             id=1,
             name=name,
             full_name=f"{self.username}/{name}",
-            owner_id=self.user.id,
+            owner_id=1,
             private=False,
             fork=False,
         )
-        repo.save()
         user = User.objects.get(pk=1)
         self.assertTrue(user.repos)
         self.assertEqual(user.repos.count(), 1)

@@ -5,7 +5,7 @@ from scraper.models import Repo
 class RepoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Repo
-        fields = (
+        fields = [
             "id",
             "node_id",
             "name",
@@ -54,4 +54,4 @@ class RepoSerializer(serializers.ModelSerializer):
             "deployments_url",
             "created_at",
             "updated_at",
-        )
+        ]

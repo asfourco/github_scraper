@@ -6,11 +6,10 @@ class RepoModelTests(TestCase):
     def setUp(self):
         # setup test user
         self.username = "testUser"
-        self.user = User(id=1, login=self.username, site_admin=False)
-        self.user.save()
+        self.user = User.objects.create(id=1, login=self.username, site_admin=False)
         # setup test repo
         self.name = "testRepo"
-        self.repo = Repo(
+        self.repo = Repo.objects.create(
             id=1,
             name=self.name,
             full_name=f"{self.username}/{self.name}",
@@ -18,7 +17,6 @@ class RepoModelTests(TestCase):
             private=False,
             fork=False,
         )
-        self.repo.save()
 
     def test_read_repo(self):
         repo = Repo.objects.get(pk=1)

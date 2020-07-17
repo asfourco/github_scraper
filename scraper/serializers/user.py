@@ -5,7 +5,7 @@ from scraper.models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = (
+        fields = [
             "login",
             "id",
             "node_id",
@@ -26,4 +26,4 @@ class UserSerializer(serializers.ModelSerializer):
             "site_admin",
             "created_at",
             "updated_at",
-        )
+        ]
