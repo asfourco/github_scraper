@@ -31,9 +31,9 @@ class UserModelTests(TestCase):
             fork=False,
         )
         user = User.objects.get(pk=1)
-        self.assertTrue(user.repos)
-        self.assertEqual(user.repos.count(), 1)
-        self.assertEqual(user.repos.first().name, name)
+        self.assertTrue(user.repo_set)
+        self.assertEqual(user.repo_set.count(), 1)
+        self.assertEqual(user.repo_set.first().name, name)
 
     def test_update_user(self):
         user = User.objects.get(id=1)

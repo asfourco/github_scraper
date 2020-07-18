@@ -78,14 +78,6 @@ base url: `http://localhost:8000/api/v1`
 | /repos/|POST|CREATE| Add a single repo
 | /repos/:id|PUT|UPDATE| Update a single repo
 | /repos/:id|DELETE|DELETE|Delete a single repo
-| /next_url/repo|GET|READ|Get next link for repos
-| /next_url/repo|POST|CREATE|Create next link for repos
-| /next_url/repo|PUT|UPDATE|Update next link for repos
-| /next_url/repo|DELETE|DELETE|Delete next link for repos
-| /next_url/user|GET|READ|Get next link for users
-| /next_url/user|POST|CREATE|Create next link for users
-| /next_url/user|PUT|UPDATE|Update next link for users
-| /next_url/user|DELETE|DELETE|Delete next link for users
 
 ### Scraping Repos of a User Endpoint
 

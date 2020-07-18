@@ -70,7 +70,7 @@ def get_repos_of_user(request, pk):
     except User.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     else:
-        serialized_user = RepoSerializer(user.repos, many=True)
+        serialized_user = RepoSerializer(user.repo_set, many=True)
         return Response(serialized_user.data)
 
 

@@ -6,4 +6,3 @@ from .user import (
     scrape_github,
 )
 from .repo import get_delete_update_repo, get_post_repos, get_repo_owner
-from .next_url import get_delete_update_next_link, get_post_next_links

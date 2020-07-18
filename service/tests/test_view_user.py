@@ -156,6 +156,6 @@ class GetReposOfSingleUserTest(TestCase):
     def test_get_repo_of_user(self):
         response = client.get(reverse("get_repos_of_user", kwargs={"pk": self.user.id}))
         user = User.objects.get(pk=self.user.id)
-        serialized = RepoSerializer(user.repos, many=True)
+        serialized = RepoSerializer(user.repo_set, many=True)
         self.assertEqual(response.data, serialized.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
