@@ -1,14 +1,25 @@
 """Base Module to connect to Github API"""
 
 import warnings
-from requests import Request, Session, get
+import time
+from requests import Request, Session, get, codes
 from requests.auth import HTTPBasicAuth
-from .exceptions import InvalidAPIUrlError, InvalidAPIQueryError, InvalidParameterError
+from .exceptions import (
+    InvalidAPIUrlError,
+    InvalidAPIQueryError,
+    InvalidParameterError,
+    APIRateLimitError,
+)
 
 
 class BaseRequest:
     ROOT_API_URL = "https://api.github.com"
     PER_PAGE_LIMIT = 100
+
+    def get_request_limit(self):
+        url = f"{self.ROOT_API_URL}/rate_limit"
+        data = self.execute_request(url)
+        return data["data"]
 
     @property
     def username(self):
@@ -41,9 +52,17 @@ class BaseRequest:
         except Exception as e:
             raise e
         else:
-            if response.status_code == 404:
+            if response.status_code == codes.not_found:
                 raise InvalidAPIUrlError({"url": response.url})
-            if response.status_code != 200:
+            remaining = int(response.headers["X-RateLimit-Remaining"])
+            if response.status_code == codes.forbidden and remaining == 0:
+                raise APIRateLimitError(
+                    {
+                        "limit": response.headers["X-RateLimit-Limit"],
+                        "remaining": response.headers["X-RateLimit-Remaining"],
+                    }
+                )
+            if response.status_code != codes.ok:
                 raise InvalidAPIQueryError(
                     {"url": response.url, "code": response.status_code}
                 )

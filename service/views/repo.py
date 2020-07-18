@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from service.models import Repo
 from service.serializers import UserSerializer, RepoSerializer
-from service.utils import get_fields
+from service.utils import get_fields_of_model
 
 
 @api_view(["GET", "DELETE", "PUT"])
@@ -53,7 +53,7 @@ def get_repos():
 
 
 def create_repo(request):
-    data = {k: v for k, v in request.data.items() if k in get_fields(Repo)}
+    data = {k: v for k, v in request.data.items() if k in get_fields_of_model(Repo)}
     serialized_repo = RepoSerializer(data=data)
     if serialized_repo.is_valid():
         serialized_repo.save()

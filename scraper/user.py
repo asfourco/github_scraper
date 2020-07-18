@@ -21,7 +21,7 @@ class UserAPI(BaseRequest):
     def get_repos_of_user(
         self, username, per_page=None, page=None, type=None, sort=None, direction=None,
     ):
-        url = f"{self.ROOT_API_URL}/users/{username}/repos"
+        url = f"{self.ROOT_API_URL}/users/{username.lower()}/repos"
         params = {}
         if per_page:
             params["per_page"] = self.verify_per_page_limit(per_page)
@@ -34,3 +34,9 @@ class UserAPI(BaseRequest):
         if direction:
             params["direction"] = self.verify_direction(direction)
         return self.execute_request(url, params)
+
+    @Log(name="User API")
+    def get_user(self, username):
+        url = f"{self.ROOT_API_URL}/users/{username.lower()}"
+        response = self.execute_request(url)
+        return response.get("data")

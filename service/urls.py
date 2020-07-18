@@ -31,4 +31,10 @@ urlpatterns = [
         name="get_delete_update_next_link",
     ),
     url(r"^api/v1/next_url/$", views.get_post_next_links, name="get_post_next_links"),
+    url(r"^api/v1/scrape_github", views.scrape_github, name="scrape_github"),
+    url(
+        r"^api/v1/scrape_user_repos/(?P<username>[A-Za-z]+)$",
+        views.scrape_user_repos,
+        name="scrape_user_repos",
+    ),
 ]

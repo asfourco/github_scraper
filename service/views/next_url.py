@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from service.models import NextUrl
 from service.serializers import NextUrlSerializer
-from service.utils import get_fields
+from service.utils import get_fields_of_model
 
 
 @api_view(["GET", "DELETE", "PUT"])
@@ -52,7 +52,7 @@ def get_next_links():
 
 
 def create_next_link(request):
-    data = {k: v for k, v in request.data.items() if k in get_fields(NextUrl)}
+    data = {k: v for k, v in request.data.items() if k in get_fields_of_model(NextUrl)}
     serialized_url = NextUrlSerializer(data=data)
     if serialized_url.is_valid():
         serialized_url.save()

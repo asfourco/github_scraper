@@ -3,7 +3,7 @@ from django.db import models
 
 class User(models.Model):
     id = models.IntegerField(primary_key=True)
-    login = models.CharField(max_length=200)
+    login = models.CharField(max_length=200, unique=True)
     node_id = models.CharField(max_length=200)
     avatar_url = models.URLField()
     gravatar_id = models.CharField(max_length=200, null=True, blank=True)
