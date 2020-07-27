@@ -1,8 +1,13 @@
-from django.conf.urls import url, include
+from django.conf.urls import include, url
+from rest_framework import routers
 from service import views
 
+router = routers.DefaultRouter()
+router.register(r"users", views.UserViewSet)
+router.register(r"repos", views.RepoViewSet)
 
 urlpatterns = [
+    url("", include(router.urls)),
     url(
         r"^api/v1/users/(?P<pk>[0-9]+)$",
         views.get_delete_update_user,
